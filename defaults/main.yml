@@ -1,0 +1,23 @@
+---
+
+# variables for RPKI validation server
+RPKIvalidator:
+  # to install rpki-validator set true
+  deploy: false
+  # listen port
+  port: 8080
+  # listen address
+  address: localhost
+
+# variables for RPKI RTR server
+RTRserver:
+  # to install rpki-rtr-server set true
+  deploy: true
+  # change default listen port
+  port: 8081
+  # change default listen address
+  address: localhost
+  # RTR service listen port for sessions
+  RTRport: 8282
+  # RTR service listen address for sessions
+  RTRaddress: 0.0.0.0

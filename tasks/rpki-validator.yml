@@ -1,0 +1,50 @@
+---
+
+- name: Download latest rpki-validator-3 deb package                                                                                   
+  get_url:                                                                                                              
+    url: "https://ftp.ripe.net/tools/rpki/validator3/prod/deb/rpki-validator-3-latest.deb"                                                                    
+    dest: "./rpki-validator-3-latest.deb"                                                                                 
+  tags:                                                                                                                 
+    - install     
+
+- name: Install rpki-validator-3 deb package                                                                                    
+  apt:                                                                                                                  
+    deb: "./rpki-validator-3-latest.deb"                                                                                  
+    state: present                                                                                                      
+  tags:                                                                                                                 
+    - install                                                                                                           
+                                                                                                                        
+- name: Remove deb package from system                                                                                  
+  file:                                                                                                                 
+    name: "./rpki-validator-3-latest.deb"                                                                                 
+    state: absent                                                                                                       
+  tags:                                                                                                                 
+    - install                                                                                                           
+
+- name: Download TAL from ARIN site                                                                                     
+  get_url:                                                                                                              
+    url: https://www.arin.net/resources/manage/rpki/arin-rfc7730.tal                                                    
+    dest: /var/lib/rpki-validator/preconfigured-tals/arin.tal                                                                             
+  tags:                                                                                                                 
+    - install               
+
+- name: Configure rpki-validator-3 listen port
+  replace:
+    path: /etc/rpki-validator-3/application.properties
+    regexp: "server.port=.*"
+    replace: "server.port={{ RPKIvalidator.port }}"
+
+- name: Configure rpki-validator-3 listen address
+  replace:
+    path: /etc/rpki-validator-3/application.properties
+    regexp: 'server.address=.*'
+    replace: 'server.address={{ RPKIvalidator.address }}'
+
+- name: Enable rpki-validator-3 service                                                                                         
+  service:                                                                                                              
+    name: rpki-validator-3                                                                                                      
+    enabled: yes                                                                                                        
+  notify:                                                                                                               
+    - restart rpki-validator-3                                                                                                  
+  tags:                                                                                                                 
+    - install               

@@ -1,0 +1,18 @@
+---
+
+- name: Install required packages                                                                                       
+  apt:                                                                                                                  
+    name: "{{ item }}"                                                                                                  
+    state: present                                                                                                      
+  with_items:                                                                                                           
+    - curl                                                                                                              
+    - rsync
+    - default-jre-headless
+
+- name: Include RIPE rpki-validator if enabled
+  include_tasks: rpki-validator.yml
+  when: RPKIvalidator.deploy is true
+
+- name: Include RIPE rtr-server if enabled
+  include_tasks: rtr-server.yml
+  when: RTRserver.deploy is true

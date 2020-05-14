@@ -1,0 +1,11 @@
+---
+
+- name: restart rpki-validator-3
+  service:
+    name: rpki-validator-3
+    state: restarted
+
+- name: restart rpki-rtr-server
+  service:
+    name: rpki-rtr-server
+    state: restarted

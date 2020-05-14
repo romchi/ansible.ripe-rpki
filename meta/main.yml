@@ -1,0 +1,21 @@
+galaxy_info:
+  author: Roman Bulakh
+  description: Install RIPE rpki-validation service and RTR server
+  company: Mirohost
+
+  role_name: ripe-rpki
+  license: Apache-2.0
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: Debian
+      versions:
+        - buster
+    - name: Ubuntu
+      versions:
+        - bionic
+
+  galaxy_tags:
+    - rpki
+
+dependencies: []

@@ -1,0 +1,55 @@
+---
+
+- name: Download latest rpki-rtr-server deb package                                                                    
+  get_url:                                                                                                              
+    url: "https://ftp.ripe.net/tools/rpki/validator3/prod/deb/rpki-rtr-server-latest.deb"                              
+    dest: "./rpki-rtr-server-latest.deb"                                                                               
+  tags:                                                                                                                 
+    - install                                                                                                           
+                                                                                                                        
+- name: Install rpki-rtr-server deb package                                                                            
+  apt:                                                                                                                  
+    deb: "./rpki-rtr-server-latest.deb"                                                                                
+    state: present                                                                                                      
+  tags:                                                                                                                 
+    - install                                                                                                           
+                                                                                                                        
+- name: Remove deb package from system                                                                                  
+  file:                                                                                                                 
+    name: "./rpki-rtr-server-latest.deb"                                                                                 
+    state: absent                                                                                                       
+  tags:                                                                                                                 
+    - install                                                                                                           
+                                                                                                                        
+- name: Configure rpki-rtr-server listen port                                                                          
+  replace:                                                                                                              
+    path: /etc/rpki-rtr-server/application.properties                                                                  
+    regexp: "^server.port=.*"                                                                                            
+    replace: "server.port={{ RTRserver.port }}"                                                                     
+                                                                                                                        
+- name: Configure rpki-rtr-server listen address                                                                       
+  replace:                                                                                                              
+    path: /etc/rpki-rtr-server/application.properties                                                                  
+    regexp: '^server.address=.*'                                                                                         
+    replace: 'server.address={{ RTRserver.address }}'                
+
+- name: Configure rpki-rtr-server listen RTR port                                                                          
+  replace:                                                                                                              
+    path: /etc/rpki-rtr-server/application.properties                                                                  
+    regexp: "^rtr.server.port=.*"                                                                                            
+    replace: "rtr.server.port={{ RTRserver.RTRport }}"                                                                     
+                                                                                                                        
+- name: Configure rpki-rtr-server listen RTR address                                                                       
+  replace:                                                                                                              
+    path: /etc/rpki-rtr-server/application.properties                                                                  
+    regexp: '^rtr.server.address=.*'                                                                                         
+    replace: 'rtr.server.address={{ RTRserver.RTRaddress }}'                
+
+#- name: Enable rpki-rtr-server service                                                                                         
+#  service:                                                                                                              
+#    name: rpki-rtr-server                                                                                                  
+#    enabled: yes                                                                                                        
+#  notify:                                                                                                               
+#    - restart rpki-rtr-server                                                                                                 
+#  tags:                                                                                                                 
+#    - install                                                                                                           

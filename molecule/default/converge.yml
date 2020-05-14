@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include romchi.ripe-rpki"
+      include_role:
+        name: "romchi.ripe-rpki"
