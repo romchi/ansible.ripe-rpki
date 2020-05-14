@@ -85,7 +85,7 @@ Including an example of how to use your role (for instance, with variables passe
           RTRhost: 0.0.0.0
 
       roles:
-         - { role: romchi.ripe-validator, tags: octorpki }
+         - role: romchi.ripe_rpki
 
 Author Information
 ------------------
