@@ -76,16 +76,16 @@ Including an example of how to use your role (for instance, with variables passe
         RPKIvalidator:
           deploy: true
           port: 8080
-          host: 0.0.0.0
+          address: 0.0.0.0
         RTRserver:
           deploy: true
           port: 8081
-          host: 0.0.0.0
+          address: 0.0.0.0
           RTRport: 8282
           RTRhost: 0.0.0.0
 
       roles:
-         - role: romchi.ripe_rpki
+         - { role: romchi.ripe-validator, tags: octorpki }
 
 Author Information
 ------------------

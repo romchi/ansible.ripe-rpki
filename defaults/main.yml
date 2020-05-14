@@ -12,7 +12,7 @@ RPKIvalidator:
 # variables for RPKI RTR server
 RTRserver:
   # to install rpki-rtr-server set true
-  deploy: false
+  deploy: true
   # change default listen port
   port: 8081
   # change default listen address

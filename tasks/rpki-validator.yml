@@ -33,12 +33,16 @@
     path: /etc/rpki-validator-3/application.properties
     regexp: "server.port=.*"
     replace: "server.port={{ RPKIvalidator.port }}"
+  notify:                                                                                                               
+    - restart rpki-validator-3                                                                                                  
 
 - name: Configure rpki-validator-3 listen address
   replace:
     path: /etc/rpki-validator-3/application.properties
     regexp: 'server.address=.*'
     replace: 'server.address={{ RPKIvalidator.address }}'
+  notify:                                                                                                               
+    - restart rpki-validator-3                                                                                                  
 
 - name: Enable rpki-validator-3 service                                                                                         
   service:                                                                                                              
